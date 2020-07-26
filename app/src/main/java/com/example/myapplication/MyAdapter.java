@@ -12,19 +12,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-/**
- * Created by shido on 2017/9/18.
- */
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    private List<ActivityClass> list;
+    private List<ActivityOneClass> list1;
     private Context context;
+    private int size;
+    private int[] number;
+
+
     public static final int TYPE_1=1;
     public static final int TYPE_2=2;
     public static final int TYPE_3=3;
-    public MyAdapter(Context context,List<ActivityClass> list){
-        this.list=list;
+
+    public MyAdapter(Context context, List<ActivityOneClass> list, int[] number){
+        this.list1=list;
         this.context=context;
+        this.number=number;
+
     }
 
 
@@ -34,38 +40,99 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             case TYPE_1:
             View viewOne =LayoutInflater.from(parent.getContext()).inflate(R.layout.item_type_one,parent,false);
             final MyViewHorlder1 horlder1=new MyViewHorlder1(viewOne);
+
+
             horlder1.viewOne.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int k=horlder1.getAdapterPosition();
-                    ActivityClass activityClass=list.get(k);
+                    ActivityOneClass activityClass=list1.get(k);
                     ActivityOne.actionStart(horlder1.viewOne.getContext(),activityClass.getTitle(),activityClass.getContent(),activityClass.getImageId());
                 }
             });
+
+
+                horlder1.dislike.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (list1.size() == 1) {
+                            Toast.makeText(view.getContext(), "此条目不能删除", Toast.LENGTH_SHORT).show();
+                        } else {
+                            int k=horlder1.getAdapterPosition();
+                            //               删除自带默认动画
+                            removeData(k);
+
+                            for (int i=k;i<=list1.size()-1;i++){
+                                number[i]=number[i+1];
+                            }
+                        }
+                    }
+                });
             return  horlder1;
+
+
             case TYPE_2:
                 View viewTwo =LayoutInflater.from(parent.getContext()).inflate(R.layout.item_type_two,parent,false);
                 final MyVeiwHorlder2 horlder2=new MyVeiwHorlder2(viewTwo);
+
+
                 horlder2.viewTwo.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         int k=horlder2.getAdapterPosition();
-                        ActivityClass activityClass=list.get(k);
+                        ActivityOneClass activityClass=list1.get(k);
                         ActivityOne.actionStart(horlder2.viewTwo.getContext(),activityClass.getTitle(),activityClass.getContent(),activityClass.getImageId());
                     }
                 });
+
+                horlder2.dislike.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (list1.size() == 1) {
+                            Toast.makeText(view.getContext(), "此条目不能删除", Toast.LENGTH_SHORT).show();
+                        } else {
+                            int k=horlder2.getAdapterPosition();
+                            //               删除自带默认动画
+                            removeData(k);
+
+                            for (int i=k;i<=list1.size()-1;i++){
+                                number[i]=number[i+1];
+                            }
+                        }
+                    }
+                });
                 return  horlder2;
+
+
             case TYPE_3:
             View viewThree =LayoutInflater.from(parent.getContext()).inflate(R.layout.item_type_three,parent,false);
             final MyVeiwHorlder3 horlder3=new MyVeiwHorlder3(viewThree);
             horlder3.viewThree.setOnClickListener(new View.OnClickListener() {
                 @Override
+
                 public void onClick(View view) {
                     int k=horlder3.getAdapterPosition();
-                    ActivityClass activityClass=list.get(k);
+                    ActivityOneClass activityClass=list1.get(k);
                     ActivityOne.actionStart(horlder3.viewThree.getContext(),activityClass.getTitle(),activityClass.getContent(),activityClass.getImageId());
                 }
             });
+
+                horlder3.dislike.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (list1.size() == 1) {
+                            Toast.makeText(view.getContext(), "此条目不能删除", Toast.LENGTH_SHORT).show();
+                        } else {
+                            int k=horlder3.getAdapterPosition();
+                            //               删除自带默认动画
+                            removeData(k);
+
+                            for (int i=k;i<=list1.size()-1;i++){
+                                number[i]=number[i+1];
+                            }
+                        }
+                    }
+                });
             return horlder3;
             default:
                 return null;
@@ -89,7 +156,9 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return list1.size();
+
+
     }
 
 
@@ -98,6 +167,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         private final ImageView avaterOne;
         private final ImageView avaterTwo;
         private final ImageView avaterThree;
+        private final ImageView dislike;
         private final TextView title_One;
 
 
@@ -109,6 +179,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             avaterOne = (ImageView) itemView.findViewById(R.id.avaterOne);
             avaterTwo = (ImageView) itemView.findViewById(R.id.avaterTwo);
             avaterThree = (ImageView) itemView.findViewById(R.id.avaterThree);
+            dislike = (ImageView) itemView.findViewById(R.id.dislike);
         }
     }
 
@@ -116,10 +187,12 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     class MyVeiwHorlder2 extends RecyclerView.ViewHolder{
         private  View viewTwo;
         private final TextView title_two;
+        private  final ImageView dislike;
 
         public MyVeiwHorlder2(View itemView) {
             super(itemView);
             viewTwo=itemView;
+            dislike=(ImageView) itemView.findViewById(R.id.dislike) ;
             title_two = (TextView) itemView.findViewById(R.id.title_Two);
 
         }
@@ -128,13 +201,16 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     class MyVeiwHorlder3 extends RecyclerView.ViewHolder{
         private  View viewThree;
+        JCVideoPlayer jcVideoPlayerStandard;
         private final TextView title_three;
+        private final ImageView dislike;
 
         public MyVeiwHorlder3(View itemView) {
             super(itemView);
             viewThree=itemView;
+            jcVideoPlayerStandard = (JCVideoPlayerStandard) itemView.findViewById(R.id.video);
             title_three= (TextView) itemView.findViewById(R.id.title_Three);
-
+            dislike=(ImageView) itemView.findViewById(R.id.dislike);
         }
     }
 
@@ -142,39 +218,41 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private void TYPE1(MyViewHorlder1 viewHorlder1,int position){
 
-        ActivityClass activityClass=list.get(position);
+        ActivityOneClass activityClass=list1.get(position);
 
         viewHorlder1.title_One.setText(activityClass.getTitle());
-
+        viewHorlder1.dislike.setImageResource(R.mipmap.dislike);
         viewHorlder1.avaterOne.setImageResource(activityClass.getImageId());
         viewHorlder1.avaterTwo.setImageResource(activityClass.getImageId());
         viewHorlder1.avaterThree.setImageResource(activityClass.getImageId());
 
 
-
     }
     private void TYPE2(MyVeiwHorlder2 viewHorlder2,int position){
 
-        ActivityClass activityClass=list.get(position);
+        ActivityOneClass activityClass=list1.get(position);
         viewHorlder2.title_two.setText(activityClass.getTitle());
+        viewHorlder2.dislike.setImageResource(R.mipmap.dislike);
 
     }
 
     private void TYPE3(MyVeiwHorlder3 viewHorlder3,int position){
 
-        ActivityClass activityClass=list.get(position);
+        ActivityOneClass activityClass=list1.get(position);
         viewHorlder3.title_three.setText(activityClass.getTitle());
-
+        viewHorlder3.dislike.setImageResource(R.mipmap.dislike);
+        viewHorlder3.jcVideoPlayerStandard.setUp("https://txmov2.a.yximgs.com/upic/2017/06/22/23/BMjAxNzA2MjIyMzEyMThfNzAyMzQ4Ml8yNDU3OTA1MjA1XzJfMw==_b.mp4",JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL,"");
     }
 
 
 
     @Override
     public int getItemViewType(int position) {
-        if (position%3==0) {
+
+        if (number[position]%3==0) {
             return TYPE_1;
         }else {
-            if(position%3==1) {
+            if(number[position]%3==1) {
                 return TYPE_2;
             }
             else {
@@ -182,4 +260,15 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             }
         }
     }
+
+    public void removeData(int position) {
+
+        list1.remove(position);
+        notifyItemRemoved(position);
+        notifyDataSetChanged();
+    }
+
+
 }
+
+
