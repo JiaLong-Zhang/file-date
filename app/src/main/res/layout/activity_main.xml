@@ -8,48 +8,17 @@
     android:orientation="vertical"
     tools:context="com.example.myapplication.MainActivity">
 
+
+    <include layout="@layout/top"> </include>
+
     <FrameLayout
         android:id="@+id/fragment_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mRv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
     </FrameLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/main_first"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:drawableTop="@drawable/evaluate_btn"
-            android:enabled="true"
-            android:gravity="center"
-            android:text="首页" />
-
-        <TextView
-            android:id="@+id/main_second"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:drawableTop="@drawable/atlas_btn"
-            android:enabled="true"
-            android:gravity="center"
-            android:text="收藏" />
+    <include layout="@layout/bottom"> </include>
 
 
-
-
-    </LinearLayout>
 </LinearLayout>

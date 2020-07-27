@@ -26,9 +26,9 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     public static final int TYPE_2=2;
     public static final int TYPE_3=3;
 
-    public MyAdapter(Context context, List<ActivityOneClass> list, int[] number){
+    public MyAdapter(List<ActivityOneClass> list, int[] number){
         this.list1=list;
-        this.context=context;
+
         this.number=number;
 
     }
