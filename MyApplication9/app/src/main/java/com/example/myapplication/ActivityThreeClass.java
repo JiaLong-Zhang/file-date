@@ -5,10 +5,10 @@ public class ActivityThreeClass {
     private String content;
     private String videoUri;
 
-    public ActivityThreeClass(String title, String content, String viderUri) {
+    public ActivityThreeClass(String title, String content, String videoUri) {
         this.title = title;
         this.content=content;
-        this.videoUri = viderUri;
+        this.videoUri = videoUri;
     }
 
 

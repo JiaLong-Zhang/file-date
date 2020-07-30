@@ -30,7 +30,7 @@ public class ActivityThree extends AppCompatActivity {
 
 
     public static void actionStart(Context context, String title, String content, String videoUri) {
-        Intent intent = new Intent(context, ActivityOne.class);   //创建intent实例
+        Intent intent = new Intent(context, ActivityThree.class);   //创建intent实例
         intent.putExtra("title",title);
         intent.putExtra("content",content);
         intent.putExtra("videoUri",videoUri);

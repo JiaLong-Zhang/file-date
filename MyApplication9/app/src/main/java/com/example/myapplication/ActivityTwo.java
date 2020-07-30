@@ -23,7 +23,7 @@ public class ActivityTwo extends AppCompatActivity {
     }
 
     public static void actionStart(Context context, String title, String content) {
-        Intent intent = new Intent(context, ActivityOne.class);   //创建intent实例
+        Intent intent = new Intent(context, ActivityTwo.class);   //创建intent实例
         intent.putExtra("title",title);
         intent.putExtra("content",content);
         //放入要传递的参数

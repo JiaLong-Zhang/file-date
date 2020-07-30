@@ -2,14 +2,11 @@ package com.example.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,8 +22,7 @@ public class DemoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private int typeTwo=0;
     private int typeThree=0;
 
-    public DemoAdapter(Context context) {
-        mLayoutInflater = LayoutInflater.from(context);
+    public DemoAdapter(){
     }
     //存放各个list的type
     private List<Integer> types = new ArrayList<>();
@@ -55,7 +51,6 @@ public class DemoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         items3 = itemThrees;
     }
 
-
     private void addItemByType(int type,List list){
         //注意传入的是types.size()
         mPositions.put(type,types.size());
@@ -64,8 +59,10 @@ public class DemoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
+
     @Override
     public int getItemViewType(int position) {
+
         return types.get(position);
     }
 
@@ -82,36 +79,34 @@ public class DemoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     @Override
                     public void onClick(View view) {
 
+                        int k=horlder1.getAdapterPosition();
 
-                        ActivityOneClass activityClass=items1.get(0);
+                        ActivityOneClass activityClass=items1.get(k);
                         ActivityOne.actionStart(horlder1.viewOne.getContext(),activityClass.getTitle(),activityClass.getContent(),activityClass.getImageId());
                     }
                 });
 
 
-//                horlder1.dislike.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        if (list1.size() == 1) {
-//                            Toast.makeText(view.getContext(), "此条目不能删除", Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            int k=horlder1.getAdapterPosition();
-//                            //               删除自带默认动画
-//                            removeData(k);
-//
-//                            for (int i=k;i<=list1.size()-1;i++){
-//                                number[i]=number[i+1];
-//                            }
-//                        }
-//                    }
-//                });
+                horlder1.dislike.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-//                horlder1.like.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Toast.makeText(view.getContext(), "此条目不能删除", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+                        if (types.size() == 1) {
+                            Toast.makeText(view.getContext(), "此条目不能删除", Toast.LENGTH_SHORT).show();
+                        } else {
+                            int k=horlder1.getAdapterPosition();
+                            removeData(k,TYPE_ONE);
+
+                        }
+                    }
+                });
+
+                horlder1.like.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(view.getContext(), "此条目不能删除", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 return  horlder1;
 
             case TYPE_TWO:
@@ -128,23 +123,20 @@ public class DemoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                 });
 
-//                horlder2.dislike.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        if (list1.size() == 1) {
-//                            Toast.makeText(view.getContext(), "此条目不能删除", Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            int k=horlder2.getAdapterPosition();
-//                            //               删除自带默认动画
-//                            removeData(k);
-//
-//                            for (int i=k;i<=list1.size()-1;i++){
-//                                number[i]=number[i+1];
-//                            }
-//                        }
-//                    }
-//                });
-//
+                horlder2.dislike.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (types.size() == 1) {
+                            Toast.makeText(view.getContext(), "此条目不能删除", Toast.LENGTH_SHORT).show();
+                        } else {
+                            int k=horlder2.getAdapterPosition();
+                            //               删除自带默认动画
+                            removeData(k,TYPE_TWO);
+
+                            }
+                        }
+                    });
+
 //
 //                horlder2.like.setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -168,23 +160,20 @@ public class DemoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                 });
 
-//                horlder3.dislike.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        if (list1.size() == 1) {
-//                            Toast.makeText(view.getContext(), "此条目不能删除", Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            int k=horlder3.getAdapterPosition();
-//                            //               删除自带默认动画
-//                            removeData(k);
-//
-//                            for (int i=k;i<=list1.size()-1;i++){
-//                                number[i]=number[i+1];
-//                            }
-//                        }
-//                    }
-//                });
-//
+                horlder3.dislike.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (types.size() == 1) {
+                            Toast.makeText(view.getContext(), "此条目不能删除", Toast.LENGTH_SHORT).show();
+                        } else {
+                            int k=horlder3.getAdapterPosition();
+                            //               删除自带默认动画
+                            removeData(k,TYPE_THREE);
+
+                        }
+                    }
+                });
+
 //                horlder3.like.setOnClickListener(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View view) {
@@ -198,7 +187,9 @@ public class DemoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        int viewType = getItemViewType(position);       //获取每个view在列表里相对位置
+        int viewType = getItemViewType(position);
+        //获取每个view在列表里相对位置
+//        int realPositions = position - mPositions.get(viewType);
         switch (viewType){
             case TYPE_ONE:
                 ((TypeOneHolder)holder).bindHolder(items1.get(typeOne++));
@@ -210,11 +201,35 @@ public class DemoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 ((TypeThreeHolder)holder).bindHolder(items3.get(typeThree++));
                 break;
         }
-
     }
 
     @Override
     public int getItemCount() {
+
         return types.size();
+    }
+
+    public void removeData(int position,int type) {
+        if (type==TYPE_ONE){
+            types.remove(position);
+            items1.remove(position);
+        }
+        else {
+            if (type==TYPE_TWO){
+                types.remove(position);
+                items2.remove(position-typeOne);
+            }
+            else {
+                types.remove(position);
+                items3.remove(position-typeOne-typeTwo);
+            }
+        }
+
+        typeOne=0;
+        typeTwo=0;
+        typeThree=0;
+
+        notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 }

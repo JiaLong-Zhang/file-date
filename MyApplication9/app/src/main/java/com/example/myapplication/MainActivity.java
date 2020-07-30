@@ -1,69 +1,102 @@
 package com.example.myapplication;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Rect;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.view.View;
+import android.view.Window;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-public class MainActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private DemoAdapter adpter;
-    final String[] titles = new String[] { "火影忍者第一集剧情", "火影忍者第二集剧情", "火影忍者第三集剧情", "火影忍者第四集剧情", "火影忍者第五集剧情", "火影忍者第六集剧情" };
+    private Fragment mTab01=new First_Fragment();
+    private Fragment mTab02=new Second_Fragment();
+
+    private FragmentManager fm;
+    LinearLayout buttonOne;
+    LinearLayout buttonTwo;
+
+    ImageButton home;
+    ImageButton like;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        final GridLayoutManager manager = new GridLayoutManager(this,1);
-        recyclerView.setLayoutManager(manager);
-        adpter = new DemoAdapter(this);
-        initData();
-        recyclerView.setAdapter(adpter);
+        initFragment();
+        initView();
+        selectfragment(0);
+        initEvent();
 
 
     }
+    private void initEvent(){
+        buttonOne.setOnClickListener(this);
+        buttonTwo.setOnClickListener(this);
 
-    private void initData() {
+    }
+    private void initFragment(){
+        fm = getFragmentManager();
+        FragmentTransaction transaction=fm.beginTransaction();
+        transaction.add(R.id.fragment_main,mTab01);
+        transaction.add(R.id.fragment_main,mTab02);
+        transaction.commit();
+    }
+    private void initView(){
+        buttonOne=findViewById(R.id.bottomOne);
+        buttonTwo = findViewById(R.id.buttonTwo);
+
+        home = findViewById(R.id.home);
+        like = findViewById(R.id.like);
+
+    }
+
+    private void hideFragment(FragmentTransaction transaction){
+        transaction.hide(mTab01);
+        transaction.hide(mTab02);
+
+    }
+    private void resetImgs(){
+        home.setImageResource(R.drawable.evaluate_normal);
+        like.setImageResource(R.drawable.atlas_normal);
+    }
+    private void selectfragment(int i){
+        FragmentTransaction transaction=fm.beginTransaction();
+        hideFragment(transaction);
+        switch (i){
+            case 0:
+                transaction.show(mTab01);
+                home.setImageResource(R.drawable.evaluate_press);
+                break;
+            case 1:
+                transaction.show(mTab02);
+                like.setImageResource(R.drawable.atlas_press);
+                break;
+            default:
+                break;
+        }
+        transaction.commit();
+    }
+
+    public void onClick(View v){
+        resetImgs();
+        switch (v.getId()){
+            case R.id.bottomOne:
+                selectfragment(0);
+                break;
+            case R.id.buttonTwo:
+                selectfragment(1);
+                break;
 
 
-        List<ActivityOneClass> list1 = new ArrayList<>();
-        List<ActivityTwoClass> list2 = new ArrayList<>();
-        List<ActivityThreeClass> list3 = new ArrayList<>();
-
-
-        ActivityOneClass one = new ActivityOneClass("火影忍者第一集剧情", "鸣人刚出场就让我们吓了一跳，伊鲁卡追着逃课的他满村子跑。好不容易抓住了鸣人，但是在变身的考核上，鸣人却变出了一个裸女，并美其名曰是色诱之术。他是一个十足的钓车尾，但是他一点都不讨人厌，尽管他不被认同，但是他不退缩，永不服输，爱吃拉面，爱恶搞，而这样的人，才是我们心中的鸣人，感动从这一刻开始了。",R.drawable.p3);
-        list1.add(one);
-
-        ActivityTwoClass two = new ActivityTwoClass("火影忍者第一集剧情", "鸣人刚出场就让我们吓了一跳，伊鲁卡追着逃课的他满村子跑。好不容易抓住了鸣人，但是在变身的考核上，鸣人却变出了一个裸女，并美其名曰是色诱之术。他是一个十足的钓车尾，但是他一点都不讨人厌，尽管他不被认同，但是他不退缩，永不服输，爱吃拉面，爱恶搞，而这样的人，才是我们心中的鸣人，感动从这一刻开始了。");
-        list2.add(two);
-
-        ActivityThreeClass three = new ActivityThreeClass("火影忍者第er集剧情", "鸣人刚出场就让我们吓了一跳，伊鲁卡追着逃课的他满村子跑。好不容易抓住了鸣人，但是在变身的考核上，鸣人却变出了一个裸女，并美其名曰是色诱之术。他是一个十足的钓车尾，但是他一点都不讨人厌，尽管他不被认同，但是他不退缩，永不服输，爱吃拉面，爱恶搞，而这样的人，才是我们心中的鸣人，感动从这一刻开始了。","https://txmov2.a.yximgs.com/upic/2017/06/22/23/BMjAxNzA2MjIyMzEyMThfNzAyMzQ4Ml8yNDU3OTA1MjA1XzJfMw==_b.mp4");
-        list3.add(three);
-
-        adpter.addList_ONE(list1);
-        adpter.addList_TWO(list2);
-        adpter.addList_THREE(list3);
-        adpter.notifyDataSetChanged();
+        }
     }
 
 }
