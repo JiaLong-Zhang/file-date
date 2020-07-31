@@ -17,12 +17,27 @@
             android:paddingBottom="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <ImageView
-            android:id="@+id/dislike"
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:src="@mipmap/dislike"/>
+            android:orientation="horizontal"
+            >
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:paddingRight="2.5dp"
+                    android:src="@drawable/love_normal"
+                    android:id="@+id/like"
+                    />
 
+                <ImageView
+                    android:id="@+id/dislike"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:paddingLeft="5dp"
+                    android:src="@drawable/dislike"/>
 
+        </LinearLayout>
 </LinearLayout>

@@ -19,10 +19,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FragmentManager fm;
     LinearLayout buttonOne;
     LinearLayout buttonTwo;
-
     ImageButton home;
     ImageButton like;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initView();
         selectfragment(0);
         initEvent();
-
-
     }
+
     private void initEvent(){
         buttonOne.setOnClickListener(this);
         buttonTwo.setOnClickListener(this);
@@ -57,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         like = findViewById(R.id.like);
 
     }
-
     private void hideFragment(FragmentTransaction transaction){
         transaction.hide(mTab01);
         transaction.hide(mTab02);

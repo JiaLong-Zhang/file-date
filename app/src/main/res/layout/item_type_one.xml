@@ -52,13 +52,29 @@
         android:src="@drawable/activity_one"
         />
 </LinearLayout>
-    <ImageView
-        android:id="@+id/dislike"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:paddingRight="2.5dp"
+            android:src="@drawable/love_normal"
+            android:id="@+id/like"
+            />
 
-       android:layout_gravity="right"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:src="@mipmap/dislike"/>
+        <ImageView
+            android:id="@+id/dislike"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:paddingLeft="5dp"
+            android:src="@drawable/dislike"/>
+
+    </LinearLayout>
+
 
 
 </LinearLayout>

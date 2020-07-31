@@ -15,22 +15,15 @@ import java.util.List;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
-public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    private List<ActivityOneClass> list1;
-    private Context context;
-    private int size;
-    private int[] number;
-
+public class MyAdapterOne extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    private List<ActivityClass> list;
 
     public static final int TYPE_1=1;
     public static final int TYPE_2=2;
     public static final int TYPE_3=3;
 
-    public MyAdapter(List<ActivityOneClass> list, int[] number){
-        this.list1=list;
-
-        this.number=number;
-
+    public MyAdapterOne(List<ActivityClass> list){
+        this.list=list;
     }
 
 
@@ -46,7 +39,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 @Override
                 public void onClick(View view) {
                     int k=horlder1.getAdapterPosition();
-                    ActivityOneClass activityClass=list1.get(k);
+                    ActivityClass activityClass=list.get(k);
                     ActivityOne.actionStart(horlder1.viewOne.getContext(),activityClass.getTitle(),activityClass.getContent(),activityClass.getImageId());
                 }
             });
@@ -55,19 +48,36 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 horlder1.dislike.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (list1.size() == 1) {
+                        if (list.size() == 1) {
                             Toast.makeText(view.getContext(), "此条目不能删除", Toast.LENGTH_SHORT).show();
                         } else {
                             int k=horlder1.getAdapterPosition();
                             //               删除自带默认动画
                             removeData(k);
-
-                            for (int i=k;i<=list1.size()-1;i++){
-                                number[i]=number[i+1];
-                            }
                         }
                     }
                 });
+
+
+                horlder1.like.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ImageView like=view.findViewById(R.id.like);
+                        int k=horlder1.getAdapterPosition();
+                        ActivityClass activityClass=list.get(k);
+
+                        if(activityClass.getLikeCondition()==0){
+                            like.setImageResource(R.drawable.love_press);
+                            activityClass.setLikeCondition(1);
+                        }
+                        else {
+                            like.setImageResource(R.drawable.love_normal);
+                            activityClass.setLikeCondition(0);
+                        }
+
+                    }
+                });
+
             return  horlder1;
 
 
@@ -80,25 +90,40 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     @Override
                     public void onClick(View view) {
                         int k=horlder2.getAdapterPosition();
-                        ActivityOneClass activityClass=list1.get(k);
-                        ActivityOne.actionStart(horlder2.viewTwo.getContext(),activityClass.getTitle(),activityClass.getContent(),activityClass.getImageId());
+                        ActivityClass activityClass=list.get(k);
+                        ActivityTwo.actionStart(horlder2.viewTwo.getContext(),activityClass.getTitle(),activityClass.getContent());
                     }
                 });
 
                 horlder2.dislike.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (list1.size() == 1) {
+                        if (list.size() == 1) {
                             Toast.makeText(view.getContext(), "此条目不能删除", Toast.LENGTH_SHORT).show();
                         } else {
                             int k=horlder2.getAdapterPosition();
                             //               删除自带默认动画
                             removeData(k);
-
-                            for (int i=k;i<=list1.size()-1;i++){
-                                number[i]=number[i+1];
-                            }
                         }
+                    }
+                });
+
+                horlder2.like.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ImageView like=view.findViewById(R.id.like);
+                        int k=horlder2.getAdapterPosition();
+                        ActivityClass activityClass=list.get(k);
+
+                        if(activityClass.getLikeCondition()==0){
+                            like.setImageResource(R.drawable.love_press);
+                            activityClass.setLikeCondition(1);
+                        }
+                        else {
+                            like.setImageResource(R.drawable.love_normal);
+                            activityClass.setLikeCondition(0);
+                        }
+
                     }
                 });
                 return  horlder2;
@@ -112,25 +137,41 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
                 public void onClick(View view) {
                     int k=horlder3.getAdapterPosition();
-                    ActivityOneClass activityClass=list1.get(k);
-                    ActivityOne.actionStart(horlder3.viewThree.getContext(),activityClass.getTitle(),activityClass.getContent(),activityClass.getImageId());
+                    ActivityClass activityClass=list.get(k);
+                    ActivityThree.actionStart(horlder3.viewThree.getContext(),activityClass.getTitle(),activityClass.getContent(),activityClass.getVideoUri());
                 }
             });
 
                 horlder3.dislike.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (list1.size() == 1) {
+                        if (list.size() == 1) {
                             Toast.makeText(view.getContext(), "此条目不能删除", Toast.LENGTH_SHORT).show();
                         } else {
                             int k=horlder3.getAdapterPosition();
                             //               删除自带默认动画
                             removeData(k);
-
-                            for (int i=k;i<=list1.size()-1;i++){
-                                number[i]=number[i+1];
-                            }
                         }
+                    }
+                });
+
+                horlder3.like.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ImageView like=view.findViewById(R.id.like);
+                        int k=horlder3.getAdapterPosition();
+                        ActivityClass activityClass=list.get(k);
+
+                        if(activityClass.getLikeCondition()==0){
+                            like.setImageResource(R.drawable.love_press);
+                            activityClass.setLikeCondition(1);
+                        }
+
+                        else {
+                            like.setImageResource(R.drawable.love_normal);
+                            activityClass.setLikeCondition(0);
+                        }
+
                     }
                 });
             return horlder3;
@@ -156,7 +197,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     @Override
     public int getItemCount() {
-        return list1.size();
+        return list.size();
 
 
     }
@@ -168,6 +209,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         private final ImageView avaterTwo;
         private final ImageView avaterThree;
         private final ImageView dislike;
+        private final ImageView like;
         private final TextView title_One;
 
 
@@ -180,6 +222,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             avaterTwo = (ImageView) itemView.findViewById(R.id.avaterTwo);
             avaterThree = (ImageView) itemView.findViewById(R.id.avaterThree);
             dislike = (ImageView) itemView.findViewById(R.id.dislike);
+            like = (ImageView) itemView.findViewById(R.id.like);
         }
     }
 
@@ -188,11 +231,13 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         private  View viewTwo;
         private final TextView title_two;
         private  final ImageView dislike;
+        private  final ImageView like;
 
         public MyVeiwHorlder2(View itemView) {
             super(itemView);
             viewTwo=itemView;
             dislike=(ImageView) itemView.findViewById(R.id.dislike) ;
+            like=(ImageView) itemView.findViewById(R.id.like) ;
             title_two = (TextView) itemView.findViewById(R.id.title_Two);
 
         }
@@ -204,6 +249,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         JCVideoPlayer jcVideoPlayerStandard;
         private final TextView title_three;
         private final ImageView dislike;
+        private final ImageView like;
 
         public MyVeiwHorlder3(View itemView) {
             super(itemView);
@@ -211,6 +257,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             jcVideoPlayerStandard = (JCVideoPlayerStandard) itemView.findViewById(R.id.video);
             title_three= (TextView) itemView.findViewById(R.id.title_Three);
             dislike=(ImageView) itemView.findViewById(R.id.dislike);
+            like=(ImageView) itemView.findViewById(R.id.like);
         }
     }
 
@@ -218,10 +265,11 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private void TYPE1(MyViewHorlder1 viewHorlder1,int position){
 
-        ActivityOneClass activityClass=list1.get(position);
+        ActivityClass activityClass=list.get(position);
 
         viewHorlder1.title_One.setText(activityClass.getTitle());
-        viewHorlder1.dislike.setImageResource(R.mipmap.dislike);
+        viewHorlder1.dislike.setImageResource(R.drawable.dislike);
+        viewHorlder1.like.setImageResource(R.drawable.love_normal);
         viewHorlder1.avaterOne.setImageResource(activityClass.getImageId());
         viewHorlder1.avaterTwo.setImageResource(activityClass.getImageId());
         viewHorlder1.avaterThree.setImageResource(activityClass.getImageId());
@@ -230,40 +278,31 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     }
     private void TYPE2(MyVeiwHorlder2 viewHorlder2,int position){
 
-        ActivityOneClass activityClass=list1.get(position);
+        ActivityClass activityClass=list.get(position);
         viewHorlder2.title_two.setText(activityClass.getTitle());
-        viewHorlder2.dislike.setImageResource(R.mipmap.dislike);
+        viewHorlder2.dislike.setImageResource(R.drawable.dislike);
+        viewHorlder2.like.setImageResource(R.drawable.love_normal);
 
     }
 
     private void TYPE3(MyVeiwHorlder3 viewHorlder3,int position){
 
-        ActivityOneClass activityClass=list1.get(position);
+        ActivityClass activityClass=list.get(position);
         viewHorlder3.title_three.setText(activityClass.getTitle());
-        viewHorlder3.dislike.setImageResource(R.mipmap.dislike);
-        viewHorlder3.jcVideoPlayerStandard.setUp("https://txmov2.a.yximgs.com/upic/2017/06/22/23/BMjAxNzA2MjIyMzEyMThfNzAyMzQ4Ml8yNDU3OTA1MjA1XzJfMw==_b.mp4",JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL,"");
+        viewHorlder3.dislike.setImageResource(R.drawable.dislike);
+        viewHorlder3.like.setImageResource(R.drawable.love_normal);
+        viewHorlder3.jcVideoPlayerStandard.setUp(activityClass.getVideoUri(),JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL,"");
     }
-
-
 
     @Override
     public int getItemViewType(int position) {
 
-        if (number[position]%3==0) {
-            return TYPE_1;
-        }else {
-            if(number[position]%3==1) {
-                return TYPE_2;
-            }
-            else {
-                return TYPE_3;
-            }
-        }
+     return list.get(position).getType();
     }
 
     public void removeData(int position) {
 
-        list1.remove(position);
+        list.remove(position);
         notifyItemRemoved(position);
         notifyDataSetChanged();
     }
