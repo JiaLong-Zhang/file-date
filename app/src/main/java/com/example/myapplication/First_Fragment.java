@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import org.litepal.LitePal;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,11 +27,13 @@ public class First_Fragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_first, null);
         }
         initList();
-
+        LitePal.getDatabase();
         recyclerView = view.findViewById(R.id.recyclerView1);
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL);
         //LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
+
+
 
         MyAdapterOne myAdapter = new MyAdapterOne(list);
         recyclerView.setAdapter(myAdapter);
@@ -43,14 +47,14 @@ public class First_Fragment extends Fragment {
         one.setImageId(R.drawable.p3);
         one.setType(1);
         one.setContent("鸣人刚出场就让我们吓了一跳，伊鲁卡追着逃课的他满村子跑。好不容易抓住了鸣人，但是在变身的考核上，鸣人却变出了一个裸女，并美其名曰是色诱之术。他是一个十足的钓车尾，但是他一点都不讨人厌，尽管他不被认同，但是他不退缩，永不服输，爱吃拉面，爱恶搞，而这样的人，才是我们心中的鸣人，感动从这一刻开始了。");
-        one.setTitle("火影忍者第会更加一集");
+        one.setTitle("火影忍者第一集");
         list.add(one);
 
         ActivityClass two = new ActivityClass();
         two.setImageId(R.drawable.p1);
         two.setType(2);
         two.setContent("木叶村每一代的首领被称为“火影”，只有忍者中实力最强者才能拥有此殊荣。“猿飞”正是现在的第三代火影，他有个孙子叫做“木叶丸”。好不容易才从忍者学校毕业的鸣人刚从学校拿到忍者证书，就遇到了木叶丸。木叶丸开口就叫鸣人“老大”，而且一直跟随在鸣人身后。这是因为，只有鸣人没有把他当做“火影的孙子”来特别对待，而木叶丸的目标就是要成为受人尊敬的“火影”……");
-        two.setTitle("火影忍者第oijio 集");
+        two.setTitle("火影忍者第二集");
         list.add(two);
 
         ActivityClass three = new ActivityClass();

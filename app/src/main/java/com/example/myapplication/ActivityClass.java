@@ -1,18 +1,14 @@
 package com.example.myapplication;
 
-public class ActivityClass {
+import org.litepal.crud.DataSupport;
+
+public class ActivityClass extends DataSupport {
     public String title;
     public String content;
     public int imageId;
     public int type;
     public String videoUri;
     public int likeCondition=0;
-
-
-    public ActivityClass() {
-
-    }
-
 
     public String getTitle() {
         return title;
@@ -54,7 +50,6 @@ public class ActivityClass {
     public void setVideoUri(String videoUri){
         this.videoUri=videoUri;
     }
-
 
     public int getLikeCondition() {
         return likeCondition;

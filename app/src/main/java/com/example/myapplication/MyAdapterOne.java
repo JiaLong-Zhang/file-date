@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.List;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
@@ -64,17 +66,28 @@ public class MyAdapterOne extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     public void onClick(View view) {
                         ImageView like=view.findViewById(R.id.like);
                         int k=horlder1.getAdapterPosition();
-                        ActivityClass activityClass=list.get(k);
 
-                        if(activityClass.getLikeCondition()==0){
+
+                        if(list.get(k).getLikeCondition()==0){
+
                             like.setImageResource(R.drawable.love_press);
-                            activityClass.setLikeCondition(1);
+                            list.get(k).setLikeCondition(1);
+                            list.get(k).save();
+//                            ActivityClass item=new ActivityClass();
+//                            item.setTitle(list.get(k).getTitle());
+//                            item.setImageId(list.get(k).getImageId());
+//                            item.setContent(list.get(k).getContent());
+
+
+                            Toast.makeText(view.getContext(), "增加成功", Toast.LENGTH_SHORT).show();
                         }
                         else {
                             like.setImageResource(R.drawable.love_normal);
-                            activityClass.setLikeCondition(0);
-                        }
+                            list.get(k).setLikeCondition(0);
 
+                            DataSupport.deleteAll(ActivityClass.class,"title=?",list.get(k).getTitle());
+                            Toast.makeText(view.getContext(), "删除成功", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 
@@ -104,6 +117,7 @@ public class MyAdapterOne extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                             int k=horlder2.getAdapterPosition();
                             //               删除自带默认动画
                             removeData(k);
+
                         }
                     }
                 });
@@ -113,15 +127,17 @@ public class MyAdapterOne extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     public void onClick(View view) {
                         ImageView like=view.findViewById(R.id.like);
                         int k=horlder2.getAdapterPosition();
-                        ActivityClass activityClass=list.get(k);
 
-                        if(activityClass.getLikeCondition()==0){
+                        if(list.get(k).getLikeCondition()==0){
                             like.setImageResource(R.drawable.love_press);
-                            activityClass.setLikeCondition(1);
+                            list.get(k).setLikeCondition(1);
+                            list.get(k).save();
                         }
                         else {
                             like.setImageResource(R.drawable.love_normal);
-                            activityClass.setLikeCondition(0);
+                            list.get(k).setLikeCondition(0);
+                            DataSupport.deleteAll(ActivityClass.class,"title=?",list.get(k).getTitle());
+                            Toast.makeText(view.getContext(), "删除成功", Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -160,16 +176,19 @@ public class MyAdapterOne extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     public void onClick(View view) {
                         ImageView like=view.findViewById(R.id.like);
                         int k=horlder3.getAdapterPosition();
-                        ActivityClass activityClass=list.get(k);
 
-                        if(activityClass.getLikeCondition()==0){
+                        if(list.get(k).getLikeCondition()==0){
                             like.setImageResource(R.drawable.love_press);
-                            activityClass.setLikeCondition(1);
+                            list.get(k).setLikeCondition(1);
+                            list.get(k).save();
                         }
 
                         else {
                             like.setImageResource(R.drawable.love_normal);
-                            activityClass.setLikeCondition(0);
+                            list.get(k).setLikeCondition(0);
+
+                            DataSupport.deleteAll(ActivityClass.class,"title=?",list.get(k).getTitle());
+                            Toast.makeText(view.getContext(), "删除成功", Toast.LENGTH_SHORT).show();
                         }
 
                     }
