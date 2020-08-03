@@ -8,7 +8,7 @@ public class ActivityClass extends DataSupport {
     public int imageId;
     public int type;
     public String videoUri;
-    public int likeCondition=0;
+    public int likeCondition;
 
     public String getTitle() {
         return title;
@@ -25,7 +25,6 @@ public class ActivityClass extends DataSupport {
     public void  setContent(String content){
         this.content=content;
     }
-
 
     public int getImageId() {
         return imageId;
@@ -58,5 +57,6 @@ public class ActivityClass extends DataSupport {
     public void setLikeCondition(int likeCondition){
         this.likeCondition=likeCondition;
     }
+
 
 }

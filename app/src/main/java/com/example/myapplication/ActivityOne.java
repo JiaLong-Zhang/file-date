@@ -25,9 +25,6 @@ public class ActivityOne extends Activity {
         title.setText(intent.getStringExtra("title"));
         content.setText(intent.getStringExtra("content"));
         image.setImageResource(intent.getExtras().getInt("imageId"));
-
-
-
     }
 
     public static void actionStart(Context context, String title,String content,int imageId) {

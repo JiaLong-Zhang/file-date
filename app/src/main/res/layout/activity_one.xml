@@ -40,7 +40,7 @@
         android:paddingLeft="20dp"
         android:paddingTop="20dp"
         android:paddingRight="20dp"
-        android:src="@drawable/activity_one"
+        android:src="@drawable/p1"
          />
 
 

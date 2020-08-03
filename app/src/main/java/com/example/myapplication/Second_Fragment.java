@@ -6,12 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
-import org.litepal.LitePal;
-import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +19,7 @@ public class Second_Fragment extends Fragment {
 
     public List<ActivityClass> list=new ArrayList<>();
 
-    public MyAdapterTwo myAdapter;
+    public AdapterLike myAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
         if (view==null){
@@ -35,7 +31,7 @@ public class Second_Fragment extends Fragment {
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL);
         //LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
-        myAdapter = new MyAdapterTwo(list);
+        myAdapter = new AdapterLike(list);
         recyclerView.setAdapter(myAdapter);
 
         return view;

@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
@@ -98,7 +99,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.buttonTwo:
                 Second_Fragment fragment=(Second_Fragment) getFragmentManager().findFragmentByTag("mTab02");
-                list= DataSupport.findAll(ActivityClass.class);
+                list= DataSupport.where("likeCondition=?","1").find(ActivityClass.class);
+                Log.d("aaa",""+list.size());
                 fragment.getList(list);
                 selectfragment(1);
                 break;
