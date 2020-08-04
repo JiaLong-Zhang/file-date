@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,21 +12,26 @@ import android.widget.TextView;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 public class ActivityThree extends AppCompatActivity {
+    public RecyclerView recyclerView;
+    public ActivityClass activityClass=new ActivityClass();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_three);
 
-        TextView title=(TextView) findViewById(R.id.contentTitle);
-        TextView content=(TextView) findViewById(R.id.content);
-        JCVideoPlayerStandard contentvideo=(JCVideoPlayerStandard)findViewById(R.id.contentVideo);
-
-
         Intent intent = getIntent();
-        title.setText(intent.getStringExtra("title"));
-        content.setText(intent.getStringExtra("content"));
-        contentvideo.setUp(intent.getStringExtra("videoUri"),JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL,"");
+        activityClass.setTitle(intent.getStringExtra("title"));
+        activityClass.setContent(intent.getStringExtra("content"));
+        activityClass.setVideoUri(intent.getStringExtra("videoUri"));
+
+        recyclerView = findViewById(R.id.recyclerView_activityThree);
+        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL);
+        //LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(manager);
+        AdapterActivityThree myAdapter = new AdapterActivityThree(activityClass);
+        myAdapter.initList();
+        recyclerView.setAdapter(myAdapter);
     }
 
     public static void actionStart(Context context, String title, String content, String videoUri) {
@@ -35,5 +42,4 @@ public class ActivityThree extends AppCompatActivity {
         //放入要传递的参数
         context.startActivity(intent);
     }
-
 }

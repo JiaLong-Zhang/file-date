@@ -26,7 +26,6 @@ public class Second_Fragment extends Fragment {
             view=inflater.inflate(R.layout.fragemnt_second,null);
         }
 
-
         recyclerView = view.findViewById(R.id.recyclerView2);
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL);
         //LinearLayoutManager layoutManager = new LinearLayoutManager(this);

@@ -57,6 +57,4 @@ public class ActivityClass extends DataSupport {
     public void setLikeCondition(int likeCondition){
         this.likeCondition=likeCondition;
     }
-
-
 }

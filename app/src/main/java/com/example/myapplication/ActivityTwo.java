@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,16 +14,24 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 public class ActivityTwo extends AppCompatActivity {
 
+    public ActivityClass activityClass=new ActivityClass();
+    public RecyclerView recyclerView;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_two);
 
-        TextView title=(TextView) findViewById(R.id.contentTitle);
-        TextView content=(TextView) findViewById(R.id.content);
-
         Intent intent = getIntent();
-        title.setText(intent.getStringExtra("title"));
-        content.setText(intent.getStringExtra("content"));
+        activityClass.setTitle(intent.getStringExtra("title"));
+        activityClass.setContent(intent.getStringExtra("content"));
+
+        recyclerView = findViewById(R.id.recyclerView_activityTwo);
+        StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL);
+        //LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(manager);
+        AdapterActivityTwo myAdapter = new AdapterActivityTwo(activityClass);
+        myAdapter.initList();
+        recyclerView.setAdapter(myAdapter);
     }
 
     public static void actionStart(Context context, String title, String content) {

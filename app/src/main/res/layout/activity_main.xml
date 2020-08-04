@@ -8,7 +8,6 @@
     android:orientation="vertical"
     tools:context="com.example.myapplication.MainActivity">
 
-
     <include layout="@layout/top"> </include>
 
     <FrameLayout
