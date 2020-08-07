@@ -5,7 +5,9 @@ import org.litepal.crud.DataSupport;
 public class ActivityClass extends DataSupport {
     public String title;
     public String content;
-    public int imageId;
+    public int imageOneId;
+    public int imageTwoId;
+    public int imageThreeId;
     public int type;
     public String videoUri;
     public int likeCondition;
@@ -26,12 +28,28 @@ public class ActivityClass extends DataSupport {
         this.content=content;
     }
 
-    public int getImageId() {
-        return imageId;
+    public int getImageOneId() {
+        return imageOneId;
     }
 
-    public void setImageId(int imageId){
-        this.imageId=imageId;
+    public void setImageOneId(int imageId){
+        this.imageOneId=imageId;
+    }
+
+    public int getImageTwoId() {
+        return imageTwoId;
+    }
+
+    public void setImageTwoId(int imageId){
+        this.imageTwoId=imageId;
+    }
+
+    public int getImageThreeId() {
+        return imageThreeId;
+    }
+
+    public void setImageThreeId(int imageId){
+        this.imageThreeId=imageId;
     }
 
     public int getType() {

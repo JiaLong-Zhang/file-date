@@ -43,7 +43,7 @@ public class AdapterLike extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     public void onClick(View view) {
                         int k=horlder1.getAdapterPosition();
                         ActivityClass activityClass=list.get(k);
-                        ActivityOne.actionStart(horlder1.viewOne.getContext(),activityClass.getTitle(),activityClass.getContent(),activityClass.getImageId());
+                        ActivityOne.actionStart(horlder1.viewOne.getContext(),activityClass.getTitle(),activityClass.getContent(),activityClass.getImageOneId(),activityClass.getImageTwoId(),activityClass.getImageThreeId());
                     }
                 });
 
@@ -196,9 +196,9 @@ public class AdapterLike extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         viewHorlder1.title_One.setText(activityClass.getTitle());
         viewHorlder1.dislike.setImageResource(R.drawable.dislike);
 
-        viewHorlder1.avaterOne.setImageResource(activityClass.getImageId());
-        viewHorlder1.avaterTwo.setImageResource(activityClass.getImageId());
-        viewHorlder1.avaterThree.setImageResource(activityClass.getImageId());
+        viewHorlder1.avaterOne.setImageResource(activityClass.getImageOneId());
+        viewHorlder1.avaterTwo.setImageResource(activityClass.getImageTwoId());
+        viewHorlder1.avaterThree.setImageResource(activityClass.getImageThreeId());
 
 
     }

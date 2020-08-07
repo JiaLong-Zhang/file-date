@@ -41,7 +41,7 @@ public class AdapterHome extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 public void onClick(View view) {
                     int k=horlder1.getAdapterPosition();
                     ActivityClass activityClass=list.get(k);
-                    ActivityOne.actionStart(horlder1.viewOne.getContext(),activityClass.getTitle(),activityClass.getContent(),activityClass.getImageId());
+                    ActivityOne.actionStart(horlder1.viewOne.getContext(),activityClass.getTitle(),activityClass.getContent(),activityClass.getImageOneId(),activityClass.getImageTwoId(),activityClass.getImageThreeId());
                 }
             });
 
@@ -64,20 +64,46 @@ public class AdapterHome extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         int k=horlder1.getAdapterPosition();
                         ActivityClass activityClass=new ActivityClass();
 
-
                         if(list.get(k).getLikeCondition()==0){
                             like.setImageResource(R.drawable.love_press);
                             list.get(k).setLikeCondition(1);
                             list.get(k).save();
                         }
-
                         else {
                             like.setImageResource(R.drawable.love_normal);
                             list.get(k).setLikeCondition(0);
-
                             list.get(k).save();
 //                            DataSupport.deleteAll(ActivityClass.class,"title=?",list.get(k).getTitle());
                         }
+
+                        horlder1.avaterOne.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int k=horlder1.getAdapterPosition();
+                                ActivityClass activityClass=list.get(k);
+                                PhotoView.actionStart(horlder1.viewOne.getContext(),activityClass.getImageOneId());
+                            }
+                        });
+
+                        horlder1.avaterTwo.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int k=horlder1.getAdapterPosition();
+                                ActivityClass activityClass=list.get(k);
+                                PhotoView.actionStart(horlder1.viewOne.getContext(),activityClass.getImageOneId());
+                            }
+                        });
+
+                        horlder1.avaterThree.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int k=horlder1.getAdapterPosition();
+                                ActivityClass activityClass=list.get(k);
+                                PhotoView.actionStart(horlder1.viewOne.getContext(),activityClass.getImageOneId());
+                            }
+                        });
+
+
                     }
                 });
             return  horlder1;
@@ -209,7 +235,6 @@ public class AdapterHome extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         private final ImageView like;
         private final TextView title_One;
 
-
         public MyViewHorlder1(View itemView) {
             super(itemView);
 
@@ -265,9 +290,9 @@ public class AdapterHome extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         viewHorlder1.title_One.setText(activityClass.getTitle());
         viewHorlder1.dislike.setImageResource(R.drawable.dislike);
         viewHorlder1.like.setImageResource(R.drawable.love_normal);
-        viewHorlder1.avaterOne.setImageResource(activityClass.getImageId());
-        viewHorlder1.avaterTwo.setImageResource(activityClass.getImageId());
-        viewHorlder1.avaterThree.setImageResource(activityClass.getImageId());
+        viewHorlder1.avaterOne.setImageResource(activityClass.getImageOneId());
+        viewHorlder1.avaterTwo.setImageResource(activityClass.getImageTwoId());
+        viewHorlder1.avaterThree.setImageResource(activityClass.getImageThreeId());
     }
 
     private void TYPE2(MyVeiwHorlder2 viewHorlder2,int position){
@@ -301,8 +326,6 @@ public class AdapterHome extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         notifyItemRemoved(position);
         notifyDataSetChanged();
     }
-
-
 }
 
 

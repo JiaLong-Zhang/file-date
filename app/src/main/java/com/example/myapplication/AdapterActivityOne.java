@@ -51,13 +51,22 @@ public class AdapterActivityOne extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType){
             case TYPE_1:
                 View viewOne =LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_one_1,parent,false);
                 final MyViewHorlder1 horlder1=new MyViewHorlder1(viewOne);
+
+
+                horlder1.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int k=horlder1.getAdapterPosition();
+                        ActivityClass activityClass=list.get(k);
+                        PhotoView.actionStart(horlder1.viewOne.getContext(),activityClass.getImageOneId());
+                    }
+                });
             return  horlder1;
 
             case TYPE_2:
@@ -70,7 +79,7 @@ public class AdapterActivityOne extends RecyclerView.Adapter<RecyclerView.ViewHo
                     public void onClick(View view) {
                         int k=horlder2.getAdapterPosition();
                         ActivityClass activityClass=list.get(k);
-                        ActivityOne.actionStart(horlder2.viewTwo.getContext(),activityClass.getTitle(),activityClass.getContent(),activityClass.getImageId());
+                        ActivityOne.actionStart(horlder2.viewTwo.getContext(),activityClass.getTitle(),activityClass.getContent(),activityClass.getImageOneId(),activityClass.getImageTwoId(),activityClass.getImageThreeId());
                     }
                 });
 
@@ -105,12 +114,14 @@ public class AdapterActivityOne extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
     class MyViewHorlder1 extends RecyclerView.ViewHolder{
+        private  View viewOne;
         private final ImageView imageView;
         private final TextView title;
         private final TextView content;
 
         public MyViewHorlder1(View itemView) {
             super(itemView);
+            viewOne=itemView;
             title = (TextView) itemView.findViewById(R.id.contentTitle);
             content = (TextView) itemView.findViewById(R.id.content);
             imageView = (ImageView) itemView.findViewById(R.id.contentImage);
@@ -143,7 +154,7 @@ public class AdapterActivityOne extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         viewHorlder1.title.setText(activityClass.getTitle());
         viewHorlder1.content.setText(activityClass.getContent());
-         viewHorlder1.imageView.setImageResource(activityClass.getImageId());
+         viewHorlder1.imageView.setImageResource(activityClass.getImageOneId());
     }
 
     private void TYPE2(MyVeiwHorlder2 viewHorlder2,int position){
@@ -152,9 +163,9 @@ public class AdapterActivityOne extends RecyclerView.Adapter<RecyclerView.ViewHo
         viewHorlder2.title.setText(activityClass.getTitle());
         viewHorlder2.dislike.setImageResource(R.drawable.dislike);
 
-        viewHorlder2.avaterOne.setImageResource(activityClass.getImageId());
-        viewHorlder2.avaterTwo.setImageResource(activityClass.getImageId());
-        viewHorlder2.avaterThree.setImageResource(activityClass.getImageId());
+        viewHorlder2.avaterOne.setImageResource(activityClass.getImageOneId());
+        viewHorlder2.avaterTwo.setImageResource(activityClass.getImageTwoId());
+        viewHorlder2.avaterThree.setImageResource(activityClass.getImageThreeId());
     }
 
     public void removeData(int position) {

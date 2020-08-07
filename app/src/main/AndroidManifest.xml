@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityThree"></activity>
+        <activity android:name=".PhotoView"></activity>
+        <activity android:name=".ActivityThree" />
         <activity android:name=".ActivityTwo" />
         <activity android:name=".ActivityOne" />
         <activity android:name=".MainActivity">

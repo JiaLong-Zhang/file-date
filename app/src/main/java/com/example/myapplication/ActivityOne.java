@@ -25,7 +25,9 @@ public class ActivityOne extends Activity {
         Intent intent = getIntent();
         activityClass.setTitle(intent.getStringExtra("title"));
         activityClass.setContent(intent.getStringExtra("content"));
-        activityClass.setImageId(intent.getExtras().getInt("imageId"));
+        activityClass.setImageOneId(intent.getExtras().getInt("imageOneId"));
+        activityClass.setImageTwoId(intent.getExtras().getInt("imageTwoId"));
+        activityClass.setImageThreeId(intent.getExtras().getInt("imageThreeId"));
 
         recyclerView = findViewById(R.id.recyclerView_activityOne);
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL);
@@ -36,12 +38,14 @@ public class ActivityOne extends Activity {
         recyclerView.setAdapter(myAdapter);
     }
 
-    public static void actionStart(Context context, String title,String content,int imageId) {
+    public static void actionStart(Context context, String title,String content,int imageOneId,int imageTwoId,int imageThreeId) {
 
         Intent intent = new Intent(context, ActivityOne.class);   //创建intent实例
         intent.putExtra("title",title);
         intent.putExtra("content",content);
-        intent.putExtra("imageId",imageId);
+        intent.putExtra("imageOneId",imageOneId);
+        intent.putExtra("imageTwoId",imageTwoId);
+        intent.putExtra("imageThreeId",imageThreeId);
         //放入要传递的参数
         context.startActivity(intent);
     }

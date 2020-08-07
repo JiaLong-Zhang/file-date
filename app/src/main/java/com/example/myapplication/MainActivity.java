@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initEvent(){
         buttonOne.setOnClickListener(this);
         buttonTwo.setOnClickListener(this);
-
     }
+
     private void initFragment(){
         fm = getFragmentManager();
         FragmentTransaction transaction=fm.beginTransaction();
@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         home = findViewById(R.id.home);
         like = findViewById(R.id.like);
-
     }
 
     private void hideFragment(FragmentTransaction transaction){
@@ -100,11 +99,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.buttonTwo:
                 Second_Fragment fragment=(Second_Fragment) getFragmentManager().findFragmentByTag("mTab02");
                 list= DataSupport.where("likeCondition=?","1").find(ActivityClass.class);
-                Log.d("aaa",""+list.size());
+//                Log.d("aaa",""+list.size());
                 fragment.getList(list);
                 selectfragment(1);
                 break;
-
 
         }
     }
