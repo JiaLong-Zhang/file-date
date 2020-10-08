@@ -1,41 +1,35 @@
 package com.example.myapplication;
 
-import android.os.Environment;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
 import java.util.List;
 
-public class AdapterHome extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class AdapterAlbum extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private List<String> list;
 
-    public AdapterHome(List<String> list){
+    public AdapterAlbum(List<String> list){
         this.list=list;
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         switch (viewType){
             case 1:
-                View view =LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
+                View view =LayoutInflater.from(parent.getContext()).inflate(R.layout.album_photo,parent,false);
                 final MyVeiwHorlder horlder=new MyVeiwHorlder(view);
 
                 horlder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         int k=horlder.getAdapterPosition();
-                        File pictureDir = Environment
-                                .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-
-                        final String GalleryPath = pictureDir
-                                + File.separator+ "MyCameraGallery" + File.separator+ list.get(k);
-                        Album.actionStart(horlder.view.getContext(),GalleryPath);
+                        PhotoView.actionStart(horlder.view.getContext(),list.get(k));
                     }
                 });
 
@@ -46,7 +40,6 @@ public class AdapterHome extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         int k=horlder.getAdapterPosition();
                         //               删除自带默认动画
                         removeData(list.get(k),k);
-
                     }
                 });
 
@@ -68,25 +61,25 @@ public class AdapterHome extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
 
 
-
     class MyVeiwHorlder extends RecyclerView.ViewHolder{
         private  View view;
-        private final TextView title_two;
+
         private  final ImageView dislike;
+        private  final ImageView photo;
 
 
         public MyVeiwHorlder(View itemView) {
             super(itemView);
             view=itemView;
             dislike=(ImageView) itemView.findViewById(R.id.dislike) ;
-            title_two = (TextView) itemView.findViewById(R.id.title_Two);
+            photo = (ImageView) itemView.findViewById(R.id.photo);
 
         }
     }
 
     private void TYPE2(MyVeiwHorlder viewHorlder,int position){
 
-        viewHorlder.title_two.setText(list.get(position));
+        viewHorlder.photo.setImageURI(Uri.fromFile(new File(list.get(position))));
         viewHorlder.dislike.setImageResource(R.drawable.dislike);
     }
 
@@ -100,33 +93,14 @@ public class AdapterHome extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     public void removeData(String string,int position) {
 
-        File pictureDir = Environment
-                .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
-        final String GalleryPath = pictureDir
-                + File.separator+ "MyCameraGallery" + File.separator+ string;
-        File file = new File(GalleryPath);
-        delete(file);
-
-
+        File file = new File(string);
+        file.delete();
         list.remove(position);
         notifyItemRemoved(position);
         notifyDataSetChanged();
     }
 
-      public static void delete(File file) {
-                    File[] childFiles = file.listFiles();
-                      if (childFiles == null || childFiles.length == 0) {
-                              file.delete();
-                               return;
-                          }
-
-                     for (int i = 0; i < childFiles.length; i++) {
-                            delete(childFiles[i]);
-                           }
-                     file.delete();
-
-         }
 
 //    private void deleteDirectory(File tempFile) {
 //        try {

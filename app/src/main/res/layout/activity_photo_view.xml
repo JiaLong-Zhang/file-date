@@ -7,10 +7,9 @@
     android:background="#000000"
     tools:context=".PhotoView">
 
-    <com.bm.library.PhotoView
+    <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/photoview"
-        android:src="@drawable/p1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"         />
 
 </LinearLayout>

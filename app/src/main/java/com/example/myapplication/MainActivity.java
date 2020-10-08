@@ -1,110 +1,84 @@
 package com.example.myapplication;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.Button;
+import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import org.litepal.crud.DataSupport;
-
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
-    private First_Fragment mTab1=new First_Fragment();
-    private Second_Fragment mTab2=new Second_Fragment();
-
-    private FragmentManager fm;
-    LinearLayout buttonOne;
-    LinearLayout buttonTwo;
-    ImageButton home;
-    ImageButton like;
-
-    public List<ActivityClass> list;
+    private RecyclerView recyclerView;
+    private Button creat_album;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
-        initFragment();
-        initView();
-        selectfragment(0);
-        initEvent();
-    }
+        requestPermission();
+        File pictureDir = Environment
+                .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        String GalleryPath = pictureDir
+                + File.separator + "MyCameraGallery";
 
-    private void initEvent(){
-        buttonOne.setOnClickListener(this);
-        buttonTwo.setOnClickListener(this);
-    }
+        File file=new File(GalleryPath);
+        File[] files=file.listFiles();
+        if (files==null ){
+            Toast.makeText(MainActivity.this, "无相册", Toast.LENGTH_SHORT).show();}
+        else {
+            List<String> s = new ArrayList<>();
+            for (int i = 0; i < files.length; i++) {
+                s.add(files[i].getName());
+//            Log.d("aaa","12"+s.get(i));
+            }
+            recyclerView = findViewById(R.id.recyclerView1);
+            StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+            //LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(manager);
 
-    private void initFragment(){
-        fm = getFragmentManager();
-        FragmentTransaction transaction=fm.beginTransaction();
-        transaction.add(R.id.fragment_main,mTab1,"mTab01");
-        transaction.add(R.id.fragment_main,mTab2,"mTab02");
-        transaction.commit();
-    }
-    private void initView(){
-        buttonOne=findViewById(R.id.bottomOne);
-        buttonTwo = findViewById(R.id.buttonTwo);
-
-        home = findViewById(R.id.home);
-        like = findViewById(R.id.like);
-    }
-
-    private void hideFragment(FragmentTransaction transaction){
-        transaction.hide(mTab1);
-        transaction.hide(mTab2);
-    }
-
-    private void resetImgs(){
-        home.setImageResource(R.drawable.evaluate_normal);
-        like.setImageResource(R.drawable.atlas_normal);
-    }
-
-    private void selectfragment(int i){
-        FragmentTransaction transaction=fm.beginTransaction();
-        hideFragment(transaction);
-        switch (i){
-            case 0:
-                transaction.show(mTab1);
-                home.setImageResource(R.drawable.evaluate_press);
-                break;
-            case 1:
-                transaction.show(mTab2);
-                like.setImageResource(R.drawable.atlas_press);
-
-                break;
-            default:
-                break;
+            AdapterHome myAdapter = new AdapterHome(s);
+            recyclerView.setAdapter(myAdapter);
         }
-        transaction.commit();
+
+        creat_album=findViewById(R.id.creat_album);
+        creat_album.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Creat_album.actionStart(MainActivity.this);
+            }
+        });
     }
 
-    public void onClick(View v){
-        resetImgs();
-        switch (v.getId()){
-            case R.id.bottomOne:
-                selectfragment(0);
-                break;
-            case R.id.buttonTwo:
-                Second_Fragment fragment=(Second_Fragment) getFragmentManager().findFragmentByTag("mTab02");
-                list= DataSupport.where("likeCondition=?","1").find(ActivityClass.class);
-//                Log.d("aaa",""+list.size());
-                fragment.getList(list);
-                selectfragment(1);
-                break;
-
+    void requestPermission(){
+        final int REQUEST_CODE = 1;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{
+                            Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_CODE);
         }
+    }
+
+    public static void actionStart(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);   //创建intent实例
+        //放入要传递的参数
+        context.startActivity(intent);
     }
 
 }
